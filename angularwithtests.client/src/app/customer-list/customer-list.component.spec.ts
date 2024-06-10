@@ -10,6 +10,10 @@ class MockDataService {
     lastName: 'Jones',
     phone: '5551212'
   }];
+
+  addCustomer(customer: Customer) {
+    this.customers.push(customer);
+  }
 }
 
 describe('CustomerListComponent', () => {
@@ -51,6 +55,15 @@ describe('CustomerListComponent', () => {
   it('should add a new customer when addCustomer is fired', () => {
     component.addCustomer();
 
-    expect(component.customers.length).toEqual(1);
+    expect(component.customers.length).toEqual(3);
+  });
+
+  it('should have Customer List as the heading', () => {
+    // find a specific element in your DOM
+    const heading: HTMLElement = fixture.nativeElement;
+    const h1 = heading.querySelector('h1')!;
+
+    expect(h1.textContent).toEqual("Customer List");
+    // expect that element to contain 'Customer List'
   });
 });

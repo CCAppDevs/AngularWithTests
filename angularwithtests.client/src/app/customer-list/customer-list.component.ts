@@ -11,7 +11,7 @@ export class CustomerListComponent {
   customers: Customer[] = []
 
   constructor(private data: DataService) {
-    this.data.customers.push({
+    this.data.addCustomer({
       firstName: "Bob",
       lastName: "Jones",
       id: 0,
@@ -20,12 +20,15 @@ export class CustomerListComponent {
   }
 
   addCustomer() {
-    // do a thing
-    this.customers.push({
-      firstName: "Bob",
-      lastName: "Jones",
-      id: 0,
-      phone: '5551212'
-    })
+    console.log("add customer clicked on component");
+    let cust: Customer = {
+        id: 0,
+        firstName: '',
+        lastName: '',
+        phone: ''
+    }
+
+    this.data.addCustomer(cust);
+    this.customers = this.data.customers;
   }
 }
