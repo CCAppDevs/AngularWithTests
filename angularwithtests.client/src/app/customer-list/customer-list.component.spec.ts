@@ -20,12 +20,12 @@ describe('CustomerListComponent', () => {
 
   // arrange
   beforeEach(() => {
+    dataService = new MockDataService();
     TestBed.configureTestingModule({
       declarations: [CustomerListComponent],
-      providers: [{ provide: dataService, useClass: MockDataService }]
+      providers: [{ provide: DataService, useValue: dataService }]
     });
     fixture = TestBed.createComponent(CustomerListComponent);
-    dataService.inject(MockDataService)
     component = fixture.componentInstance;
 
     customer = dataService.customers[0];
