@@ -2,6 +2,22 @@ import { TestBed } from '@angular/core/testing';
 
 import { DataService } from './data.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { Customer } from './Customer';
+
+const CUSTOMERS: Customer[] = [
+  {
+    firstName: "Alice",
+    lastName: "Jones",
+    id: 1,
+    phone: '5551212'
+  },
+  {
+    firstName: "Bob",
+    lastName: "Jones",
+    id: 2,
+    phone: '5551213'
+  }
+]
 
 describe('DataService', () => {
   let service: DataService;
@@ -19,16 +35,32 @@ describe('DataService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should add a new customer when addCustomer is called', () => {
-    service.addCustomer().subscribe((customers: any) => {
+  it('should get all customers', () => {
+    service.getAllCustomers().subscribe((customers: any) => {
       expect(customers).toBeTruthy();
       expect(customers.length).toBe(2);
-      const secondCustomer = customers.find((customer: any) => customer.customerID === 2);
+      const secondCustomer = customers.find((cust: any) => cust.customerID === 2);
       expect(secondCustomer.firstName).toBe('Bob');
     });
-
-    const mockReq = testingController.expectOne('api/customers');
+    const mockReq = testingController.expectOne('/api/customers');
     expect(mockReq.request.method).toEqual('GET');
     mockReq.flush(Object.values(CUSTOMERS));
+  })
+
+  it('should add a new customer when addCustomer is called', () => {
+    let john: Customer = {
+      firstName: "John",
+      lastName: "Doe",
+      id: 0,
+      phone: '5551214'
+    };
+
+    service.addCustomer(john).subscribe((customer: any) => {
+      expect(customer).toBeTruthy();
+      expect(customer.firstName).toBe('John');
+    });
+
+    const mockReq = testingController.expectOne({ url: '/api/customers', method: 'POST' });
+    //mockReq.flush(Object.values(CUSTOMERS));
   });
 });

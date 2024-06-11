@@ -11,11 +11,8 @@ export class CustomerListComponent {
   customers: Customer[] = []
 
   constructor(private data: DataService) {
-    this.data.addCustomer({
-      firstName: "Bob",
-      lastName: "Jones",
-      id: 0,
-      phone: '5551212'
+    this.data.getAllCustomers().subscribe(results => {
+      this.customers = results;
     });
   }
 
@@ -23,12 +20,14 @@ export class CustomerListComponent {
     console.log("add customer clicked on component");
     let cust: Customer = {
         id: 0,
-        firstName: '',
-        lastName: '',
-        phone: ''
+        firstName: 'alice',
+        lastName: 'doe',
+        phone: '5551213'
     }
 
-    this.data.addCustomer(cust);
-    this.customers = this.data.customers;
+    this.data.addCustomer(cust).subscribe(result => {
+      this.customers.push(result);
+    });
+    
   }
 }
