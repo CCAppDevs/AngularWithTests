@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CustomerListComponent } from './customer-list.component';
 import { Customer } from '../Customer';
 import { DataService } from '../data.service';
+import { Observable, of } from 'rxjs';
 
 class MockDataService {
   customers: Customer[] = [{
@@ -11,9 +12,15 @@ class MockDataService {
     phone: '5551212'
   }];
 
-  addCustomer(customer: Customer) {
+  addCustomer(customer: Customer): Observable<Customer> {
     this.customers.push(customer);
+    return of(customer);
   }
+
+  getAllCustomers(): Observable<Customer[]> {
+    return of(this.customers);
+  }
+
 }
 
 describe('CustomerListComponent', () => {
@@ -45,8 +52,6 @@ describe('CustomerListComponent', () => {
   });
 
   it('should have a customer list', () => {
-    component.customers.push(customer);
-
     expect(component.customers).toBeDefined();
     expect(component.customers).toEqual([customer]);
     expect(component.customers[0].firstName).toEqual("Bob");
@@ -55,7 +60,7 @@ describe('CustomerListComponent', () => {
   it('should add a new customer when addCustomer is fired', () => {
     component.addCustomer();
 
-    expect(component.customers.length).toEqual(3);
+    expect(component.customers.length).toEqual(2);
   });
 
   it('should have Customer List as the heading', () => {
