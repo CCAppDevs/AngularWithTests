@@ -9,9 +9,9 @@ export class DataService {
 
   customers: Customer[] = []
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  addCustomer(cust: Customer) {
-    this.customers.push(cust);
+  addCustomer(cust: Customer): Observable<Customer[]> {
+    return this.http.get<Customer[]>('')
   }
 }
