@@ -60,7 +60,7 @@ describe('CustomerListComponent', () => {
   it('should add a new customer when addCustomer is fired', () => {
     component.addCustomer();
 
-    expect(component.customers.length).toEqual(2);
+    expect(component.customers.length).toEqual(3);
   });
 
   it('should have Customer List as the heading', () => {
