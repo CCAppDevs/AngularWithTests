@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CustomerListComponent } from './customer-list.component';
 import { Customer } from '../Customer';
 import { DataService } from '../data.service';
+import { Observable, of } from 'rxjs';
 
 class MockDataService {
   customers: Customer[] = [{
@@ -11,8 +12,12 @@ class MockDataService {
     phone: '5551212'
   }];
 
-  addCustomer(customer: Customer) {
-    this.customers.push(customer);
+  addCustomer(customer: Customer): Observable<Customer> {
+    return of(customer);
+  }
+
+  getAllCustomers(): Observable<Customer[]> {
+    return of(this.customers);
   }
 }
 

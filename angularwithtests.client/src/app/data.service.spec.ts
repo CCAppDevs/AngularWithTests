@@ -36,11 +36,11 @@ describe('DataService', () => {
   });
 
   it('should get all customers', () => {
-    service.getAllCustomers().subscribe((customers: any) => {
+    service.getAllCustomers().subscribe((customers: Customer[]) => {
       expect(customers).toBeTruthy();
       expect(customers.length).toBe(2);
-      const secondCustomer = customers.find((cust: any) => cust.customerID === 2);
-      expect(secondCustomer.firstName).toBe('Bob');
+      const secondCustomer = customers.find((cust: Customer) => cust.id === 2);
+      expect(secondCustomer?.firstName).toBe('Bob');
     });
     const mockReq = testingController.expectOne('/api/customers');
     expect(mockReq.request.method).toEqual('GET');
@@ -54,13 +54,16 @@ describe('DataService', () => {
       id: 0,
       phone: '5551214'
     };
-
-    service.addCustomer(john).subscribe((customer: any) => {
+    console.log("toast")
+    service.addCustomer(john).subscribe(customer => {
+      console.log("toast", customer)
+      console.log(customer);
       expect(customer).toBeTruthy();
       expect(customer.firstName).toBe('John');
     });
 
     const mockReq = testingController.expectOne({ url: '/api/customers', method: 'POST' });
-    //mockReq.flush(Object.values(CUSTOMERS));
+    expect(mockReq).toBeTruthy();
+    mockReq.flush(john);
   });
 });
