@@ -19,4 +19,12 @@ export class DataService {
   addCustomer(cust: Customer): Observable<Customer> {
     return this.http.post<Customer>('/api/customers', cust);
   }
+
+  deleteCustomer(id: number): Observable<any> {
+    return this.http.delete<any>('/api/customers/' + id);
+  }
+
+  getById(id: number): Observable<Customer> {
+    return this.http.get<Customer>('/api/customers/' + id);
+  }
 }
