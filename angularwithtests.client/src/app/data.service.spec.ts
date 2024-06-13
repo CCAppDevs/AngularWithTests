@@ -98,7 +98,17 @@ describe('DataService', () => {
     mockReq.flush(customer);
   });
 
-  it('should return an error when getById is called with an invalid ID number', () => {
+  //it('should return an error when getById is called with an invalid ID number', () => {
+  //  service.getById(333).subscribe(result => {
+  //    expect(result).toBeTruthy();
+  //    // check for a 404
+  //  }, err => {
 
-  });
+  //  });
+
+  //  const mockReq = testingController.expectOne({ url: '/api/customers/333', method: 'GET' });
+  //  //mockReq.flush('', { status: 404, statusText: 'not found' });
+  //  mockReq.error(new ErrorEvent('not found'));
+  //});
+
 });

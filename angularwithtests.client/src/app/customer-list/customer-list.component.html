@@ -1,5 +1,29 @@
 <h1>Customer List</h1>
 
-<button (click)="addCustomer()">Add New Customer</button>
+<form [formGroup]="addNewForm">
+  <div>
+    <label>First Name: </label>
+    <input type="text" formControlName="firstName" />
+  </div>
+  <div>
+    <label>Last Name:</label>
+    <input type="text" formControlName="lastName" />
+  </div>
+  <div>
+    <label>Phone Number:</label>
+    <input type="text" formControlName="phone" />
+  </div>
+  <button (click)="addCustomer()">Add New Customer</button>
+</form>
+<br />
+<br />
+<div>
+  <div class="customer" *ngFor="let customer of customers">
+    <div>{{ customer.firstName }} {{ customer.lastName }} - {{ customer.phone }}</div>
+    <div>
+      <button (click)="deleteCustomer(customer.customerID)">Delete</button>
+    </div>
+  </div>
+</div>
 
 <pre>{{ customers | json }}</pre>
